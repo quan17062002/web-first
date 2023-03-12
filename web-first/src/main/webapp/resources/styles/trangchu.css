@@ -1,0 +1,119 @@
+
+  
+ #header{
+    background:
+    url("../images/pexels-lumn-322207.jpg")  no-repeat center center fixed ; 
+    height: 662px; 
+    background-size: cover;
+  
+  }
+  .none-nav{
+    background-color: transparent !important;
+    border: none !important;
+}
+.active > a {
+ color:  rgb(223, 18, 18)!important ;
+
+ background : none !important;
+}
+.event_header{
+    text-align: center;
+    margin-top: 10%;
+    
+}
+.event_header > span{
+color: #fff;
+}
+.event_header button{
+    color: #fff;
+    background-color: rgb(113, 83, 189);
+    border: none;
+    font-size: 30px;
+}
+
+.icon{
+width: 48px;
+height: 48px;
+}
+#info{
+  text-align: center;
+  margin-top: 48px;
+}
+#info > span{
+   margin-top: 16px;
+}
+#title-product{
+  margin-top:82px ;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 500px;
+}
+.product{
+  margin-top: 46px;
+  background-color: #fff;
+  border: 1px solid #CCC;
+  border-radius: 10px;
+  margin-left: 4px;
+  margin-right: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.product img{
+  height: 240px ;
+  
+}
+.product{
+	height: 371 px !important;
+}
+.gia{
+  color: red;
+  font-size: 14px;
+  margin-top: 16px;
+  padding-bottom: 16px;
+}
+#footer{
+
+  margin-top: 42px;
+  color: #fff;
+
+  padding: 38px;
+  /* The image used */
+  background-image: url("../images/thoi-trang-lam-phim-quang-cao-2018.jpg");
+
+  /* Full height */
+  height: 50%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#footer p{
+  text-align: center;
+}
+.tile-footer{
+  font-size: 32px;
+
+}
+#footer textarea{
+  border: 0;
+  background-color: beige;
+  width: 100%;
+  color:black;
+}
+.text-quan{
+  margin-bottom: 8px;
+  border: 0;
+  background-color:  beige;
+  width: 100%;
+  height: 38px;
+  color: black;
+
+}
+
+.foote-button{
+  background-color:rgb(113, 83, 189) ;
+	 width: 100%;
+	 height: 34px;
+	 color: #fff;
+	 box-shadow: 20px 20px 50px 10px rgb(113, 83, 189);
+}
