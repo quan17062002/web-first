@@ -3,8 +3,6 @@ package com.luucungquan.controller;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +25,7 @@ public class dangKyController {
 	}
 
 	@PostMapping
-	@Transactional
+
 	public String kiemTraDangKy(@RequestParam String email, @RequestParam String matKhau, @RequestParam  String nhapLaiMatKhau,
 			ModelMap modelMap) {
 		boolean kiemTra = isEmailValid(email);
@@ -40,7 +38,7 @@ public class dangKyController {
 					nhanVien.setMatKhau(matKhau);
 					boolean kiemTradangKy = nhanVienService.kiemTraDangKy(nhanVien);
 					if (kiemTradangKy == true) {
-						modelMap.addAttribute("dangKy", "TẠO THÀNH CÔNG");
+						return "../trangchu/";
 					}
 
 				} else {

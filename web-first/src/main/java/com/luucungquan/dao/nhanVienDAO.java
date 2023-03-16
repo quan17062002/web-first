@@ -1,5 +1,7 @@
 package com.luucungquan.dao;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ public class nhanVienDAO implements nhanVienImpl {
 	SessionFactory sessionFactory;
 
 	@Override
+	@Transactional
 	public boolean kiemTraDangNhap(String email, String matKhau) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
@@ -35,6 +38,7 @@ public class nhanVienDAO implements nhanVienImpl {
 	}
 
 	@Override
+	@Transactional
 	public boolean kiemTraDangKy(nhanVien nhanVien) {
 		Session session = sessionFactory.getCurrentSession();
 		int maNhanVien = (int) session.save(nhanVien);// cái này có nghĩa lưu một đối tượng nhân viên vào trong cơ sở

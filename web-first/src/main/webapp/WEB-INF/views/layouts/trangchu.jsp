@@ -10,7 +10,7 @@
 <link rel="stylesheet" href ='<c:url value = "/resources/styles/trangchu.css"/>'/>
 <link rel="stylesheet" href ='<c:url value = "/resources/styles/animate.css"/>'/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LƯU CUNG QUÂN</title>
 </head>
 <body>
 

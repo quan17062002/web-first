@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Repository;
 
 import com.luucungquan.DAOImp.sanPhamImpl;
+import com.luucungquan.entities.chiTietSanPham;
 import com.luucungquan.entities.sanPham;
 
 @Repository
@@ -28,6 +29,32 @@ public class sanPhamDAO implements sanPhamImpl {
 		 List<sanPham>listSanPham = session.createQuery("from sanPham").setFirstResult(SpDau).setMaxResults(18).getResultList();
 		return listSanPham;
 	}
+
+	
+
+	@Override
+	@Transactional
+	public sanPham layChiTietSanPham(int maSanPham) {
+		 Session session = sessionFactory.getCurrentSession();
+		 sanPham sanPham = (sanPham)session.createQuery("from sanPham sp where sp.maSanPham =  "+maSanPham).getSingleResult();
+		return sanPham;
+	}
+
+
+
+	@Override
+	@Transactional
+	public List<chiTietSanPham> chiTietSanPham(int masanPham) {
+		 Session session = sessionFactory.getCurrentSession();
+		 List<chiTietSanPham> chiTietSanPham = session.createQuery("from chiTietSanPham ctsp where ctsp.maSanPham ="+masanPham).getResultList();
+		return chiTietSanPham;
+	}
+
+
+
+	
+
+
 	
 	
 	

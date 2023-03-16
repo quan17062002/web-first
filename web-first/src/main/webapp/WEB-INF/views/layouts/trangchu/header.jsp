@@ -13,7 +13,7 @@
 					style="height: 40px; margin: -7px;"></a>
 			</div>
 			<ul class="nav navbar-nav ">
-				<li class="active"><a href="#">TRANG CHỦ</a></li>
+				<li class="active"><a href="">TRANG CHỦ</a></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> SẢN PHẨM<span class="caret"></span></a>
 					<ul class="dropdown-menu">

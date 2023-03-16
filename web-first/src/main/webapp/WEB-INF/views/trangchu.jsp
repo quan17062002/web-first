@@ -29,13 +29,15 @@
   <span>SẢN PHẨM HOT</span>
 
   <div class="row">
-             <c:forEach var="listSanPham" items="${ listSanPham}" >
+             <c:forEach var="listSanPham" items="${listSanPham}" >
               <div class="col-md-3">
+              <a href="../chitietsanpham/ ${ listSanPham.getMaSanPham() }">
                 <div class=" product " style="height: 371 px ;"> 
                 <img src='<c:url  value="../resources/images/sanpham/${listSanPham.getHinhSanPham() }" />'alt=""><br/>
                   <span style="font-size: 14px;">${listSanPham.getTenSanPham() }</span><br/>
                   <span class="gia">${listSanPham.getGiaTien() } VNĐ</span>
                 </div>
+                </a>
               </div>
              </c:forEach>
   
