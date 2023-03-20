@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class gioHang {
+	private int maChiTiet;
 	private int maSanPham;
     private int maSize;
     private int maMau;
@@ -17,6 +18,7 @@ public class gioHang {
     private String tenMau;
     private String tenSize;
     private int soLuong;
+    private String hinhAnh;
     // cai nay để chuyền thông tin vào trong giỏ hàng không phải truy vấn cơ sở dữ liệu là lấy 
     // ra cái gì VD: 
     // nhấn vào thêm vào giỏ hàng ta phải truy vấ vào cơ sở dữ liệu d

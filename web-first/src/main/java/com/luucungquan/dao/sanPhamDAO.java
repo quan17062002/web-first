@@ -52,6 +52,16 @@ public class sanPhamDAO implements sanPhamImpl {
 
 
 
+	@Override
+	@Transactional
+	public List<sanPham> laySanPhamTheoMaDanhMuc(int maDanhMuc) {
+		 Session session = sessionFactory.getCurrentSession();
+		List<sanPham>lisSanPhams = session.createQuery("from sanPham sp where  sp.maDanhMuc = "+ maDanhMuc).getResultList();
+		return lisSanPhams;
+	}
+
+
+
 	
 
 

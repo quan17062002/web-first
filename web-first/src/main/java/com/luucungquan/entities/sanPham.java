@@ -36,6 +36,8 @@ public class sanPham {
 	private String hinhSanPham;
 	@OneToMany( mappedBy = "maSanPham")
 	private Set<chiTietSanPham> chiTietSanPham;
+	
+	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "chiTietKhuyenMai", joinColumns = { @JoinColumn(name = "maSanPham") }, inverseJoinColumns = {
 			@JoinColumn(name = "maKhuyenMai") })

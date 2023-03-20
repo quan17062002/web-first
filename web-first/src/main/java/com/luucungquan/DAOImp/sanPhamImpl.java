@@ -13,5 +13,6 @@ public interface sanPhamImpl {
 	public sanPham layChiTietSanPham(int maSanPham);
 
 	public List<chiTietSanPham> chiTietSanPham(int maSanPham);
-
+    
+	public List<sanPham> laySanPhamTheoMaDanhMuc(int maDanhMuc);
 }

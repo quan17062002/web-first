@@ -25,9 +25,9 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#"> SẢN PHẨM<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Page 1-1</a></li>
-							<li><a href="#">Page 1-2</a></li>
-							<li><a href="#">Page 1-3</a></li>
+							<c:forEach var="danhmucsanpham" items="${danhMucSanPham }">
+						<li><a href="../sanpham/${danhmucsanpham.getMaDanhMuc()}/${danhmucsanpham.getTenDanhMuc()}">${danhmucsanpham.getTenDanhMuc()}</a></li>
+					</c:forEach>
 						</ul></li>
 					<li><a href="#">DỊCH VỤ</a></li>
 					<li><a href="#">LIÊN HỆ</a></li>
@@ -54,7 +54,7 @@
 							style="height: 25px; margin-right: 0px;"> <c:choose>
 								<c:when test="${soLuongSanPham <= 0|| soLuongSanPham== null }">
 									<div>
-										<span>${soLuongSanPham }</span>
+										<span></span>
 									</div>
 								</c:when>
 
@@ -79,29 +79,36 @@
 	</div>
 	<!-- phần đầu   -->
 	<div class="container">
+	<div class ="row">
 		<div class="col-md-12">
+		<h3> Danh Sách Sản Phẩm Trong Giỏ Hàng</h3>
 		<c:choose>
 		<c:when test="${soLuongSanPham >0}">
 			<table class="table">
 				<thead>
 					<tr>
+					<td>Hình Sản Phẩm</td>
 						<td>Tên Sản Phẩm</td>
 						<td>Màu Sản Phẩm</td>
 						<td>Size</td>
 						<td>Số Lượng</td>
-						<td><h4></h4></td>
+						<td>Giá Tiền</td>
+					
 					</tr>
 				</thead>
 
 				<tbody>
 					<c:forEach var="lisGioHangs" items="${lisGioHangs}">
 					
-						<tr>
-						<td>${lisGioHangs.getTenSanPham() }</td>
+						<tr data-machitiet ="${lisGioHangs.getMaChiTiet() }">
+						<td><img src='<c:url  value="../resources/images/sanpham/${lisGioHangs.getHinhAnh()}"/>' style="height: 63px;" /></td>
+						<td class = "tenSanPham" data-maSanPham = "${lisGioHangs.getMaSanPham()}">${lisGioHangs.getTenSanPham() }</td>
+				
 							<td class="maMau" data-maMau="${lisGioHangs .getMaMau()}">${lisGioHangs.getTenMau()}</td>
 							<td class="maSize" data-maSize="${lisGioHangs.getMaSize()}">${lisGioHangs.getTenSize()}</td>
-							<td class="soluong">${lisGioHangs .getSoLuong()}</td>
-							<td class="btn btn-danger">Xóa</td>
+							<td class="soluong"><input class = "soluong-giohang" type="number" min="1"   value="${lisGioHangs .getSoLuong()}" style="width: 65px;"></td>
+							<td class ="giaTien" data-giatien = "${lisGioHangs.getGiaTien() }">${lisGioHangs.getGiaTien() } VNĐ</td>
+							<td class="btn btn-danger xoaGioHang">Xóa</td>
 						</tr>
 					</c:forEach>
 
@@ -113,7 +120,43 @@
 			<h2> HIỆN CHƯA CÓ SẢN PHẨM NÀO</h2>
 			</c:when>
 			</c:choose>
+			<h3 >Tổng Tiền :<span style="color :red;" class = "tongtien"> VNĐ</span></h3>
 		</div>
+		</div>
+<div class ="row"> 
+<h3>Thông Tin Người Nhận Hàng</h3>
+ <div class="container">
+      <h1 class="text-center">Form thông tin người nhận hàng</h1>
+      <form action="" method="post">
+        <div class="form-group">
+          <label for="tenKhachHang">Họ và tên:</label>
+          <input type="text" class="form-control" id="tenKhachHang" name="tenKhachHang" required>
+        </div>
+        <div class="form-group">
+          <label for="diaChiGiaoHang">Địa chỉ giao hàng:</label>
+          <input type="text" class="form-control" id="diaChiGiaoHang" name="diaChiGiaoHang" required>
+        </div>
+        <div class="form-group">
+          <label for="soDT">Số điện thoại:</label>
+          <input type="tel" class="form-control" id="soDT" name="soDT" required>
+        </div>
+     
+        <div class="form-group">
+          <label for="phuongThucThanhToan">Phương thức thanh toán:</label>
+          <select class="form-control" id="phuongThucThanhToan" name="phuongThucThanhToan">
+            <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+            <option value="Bank transfer">Chuyển khoản ngân hàng</option>
+            <option value="Credit card">Thẻ tín dụng</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ghiChu">Ghi chú thêm (nếu có):</label>
+          <textarea class="form-control" id="ghiChu" name="ghiChu" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Đặt hàng</button>
+      </form>
+    </div>
+</div>
 	</div>
 	<!-- phần cuối -->
 	<div id="footer" class="container-fluid">

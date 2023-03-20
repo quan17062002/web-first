@@ -17,9 +17,9 @@
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> SẢN PHẨM<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Page 1-1</a></li>
-						<li><a href="#">Page 1-2</a></li>
-						<li><a href="#">Page 1-3</a></li>
+						<c:forEach var="danhmucsanpham" items="${danhMucSanPham }">
+						<li><a href="../sanpham/${danhmucsanpham.getMaDanhMuc()}/${danhmucsanpham.getTenDanhMuc()}">${danhmucsanpham.getTenDanhMuc()}</a></li>
+					</c:forEach>
 					</ul></li>
 				<li><a href="#">DỊCH VỤ</a></li>
 				<li><a href="#">LIÊN HỆ</a></li>
@@ -35,9 +35,23 @@
 					</c:otherwise>
 				</c:choose>
 				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-				<li><a href="#"><img
+				<li><a href="../giohang/"><img
 						src='<c:url value="../resources/images/Ic_shopping_cart_48px.svg.png"/>'
-						style="height: 25px; margin-right: 0px;"></a></li>
+						style="height: 25px; margin-right: 0px;">
+						<c:choose>
+								<c:when test="${soLuongSanPham <= 0|| soLuongSanPham== null }">
+									<div>
+										<span></span>
+									</div>
+								</c:when>
+
+								<c:when test="${soLuongSanPham > 0 }">
+									<div class="xeGioHang">
+										<span>${soLuongSanPham }</span>
+									</div>
+								</c:when>
+
+							</c:choose> </a></li>
 			</ul>
 		</div>
 	</nav>

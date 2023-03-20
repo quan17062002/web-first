@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +25,8 @@ import com.luucungquan.service.nhanVienService;
 public class apiController {
 	@Autowired
 	nhanVienService nhanVienService;
-	@GetMapping("dangnhap")
+
+	@PostMapping("dangnhap")
 	@ResponseBody
 	public String kiemTraDangNhap(@RequestParam String email, @RequestParam String matKhau, ModelMap modelMap) {
 		boolean kiemTra = nhanVienService.kiemTraDangNhap(email, matKhau);
@@ -37,8 +39,9 @@ public class apiController {
 	@ResponseBody
 	public void themGioHang(@RequestParam int maSanPham, @RequestParam int maSize, @RequestParam int maMau,
 			@RequestParam String tenSanPham, @RequestParam String giaTien, @RequestParam String tenMau,
-			@RequestParam String tenSize, @RequestParam int soLuong, HttpSession httpSession) {
-	if(  httpSession.getAttribute("gioHang")== null) {
+			@RequestParam String tenSize, @RequestParam int soLuong, @RequestParam String hinhAnh,
+			@RequestParam int maChiTiet, HttpSession httpSession) {
+		if (httpSession.getAttribute("gioHang") == null) {
 			List<gioHang> listGioHangs = new ArrayList<>();
 			gioHang gioHang = new gioHang();
 			gioHang.setMaSanPham(maSanPham);
@@ -49,16 +52,16 @@ public class apiController {
 			gioHang.setTenMau(tenMau);
 			gioHang.setTenSize(tenSize);
 			gioHang.setSoLuong(1);
+			gioHang.setHinhAnh(hinhAnh);
+			gioHang.setMaChiTiet(maChiTiet);
 			listGioHangs.add(gioHang);
 			httpSession.setAttribute("gioHang", listGioHangs);
-			
-		
 
-		}else {
+		} else {
 			int viTri = kiemTraSanPhamDaTonTaiGioHang(httpSession, maSanPham, maSize, maMau);
-		  if ( viTri == - 1) {
-			  List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
-			  gioHang gioHang = new gioHang();
+			if (viTri == -1) {
+				List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
+				gioHang gioHang = new gioHang();
 				gioHang.setMaSanPham(maSanPham);
 				gioHang.setMaSize(maSize);
 				gioHang.setMaMau(maMau);
@@ -67,37 +70,66 @@ public class apiController {
 				gioHang.setTenMau(tenMau);
 				gioHang.setTenSize(tenSize);
 				gioHang.setSoLuong(1);
+				gioHang.setHinhAnh(hinhAnh);
+				gioHang.setMaChiTiet(maChiTiet);
 				gioList.add(gioHang);
-			
-		  }else {
-			  List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
-			  int soLuongMoi = gioList.get(viTri).getSoLuong()+1;
-			  gioList .get(viTri).setSoLuong(soLuongMoi);
-		  }
-		  List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
-		  for (gioHang gioHang : gioList) {
-			System.out.println(gioHang.getTenSanPham()+"-"+gioHang.getSoLuong());
-		}
-		  
+
+			} else {
+				List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
+				int soLuongMoi = gioList.get(viTri).getSoLuong()+1;
+				gioList.get(viTri).setSoLuong(soLuongMoi);
+			}
+			List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
+			for (gioHang gioHang : gioList) {
+				System.out.println(gioHang.getTenSanPham() + "-" + gioHang.getSoLuong());
+			}
+
 		}
 	}
-	private int kiemTraSanPhamDaTonTaiGioHang( HttpSession httpSession,int maSanPham, int maSize, int maMau) {
+
+	private int kiemTraSanPhamDaTonTaiGioHang(HttpSession httpSession, int maSanPham, int maSize, int maMau) {
 		List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
 		for (int i = 0; i < gioList.size(); i++) {
-			if(gioList.get(i).getMaSanPham()==maSanPham &&gioList.get(i).getMaSize()==maSize&&gioList.get(i).getMaMau()==maMau) {
+			if (gioList.get(i).getMaSanPham() == maSanPham && gioList.get(i).getMaSize() == maSize
+					&& gioList.get(i).getMaMau() == maMau) {
 				return i;
 			}
 		}
 		return -1;
 	}
+
 	@GetMapping("laysoluonggiohang")
 	@ResponseBody
-	public String laySoluongGioHang( HttpSession httpSession) {
-		if (null != httpSession.getAttribute("gioHang") ) {
+	public String laySoluongGioHang(HttpSession httpSession) {
+		if (null != httpSession.getAttribute("gioHang")) {
 			List<gioHang> lisGioHangs = (List<gioHang>) httpSession.getAttribute("gioHang");
-			return lisGioHangs.size()+"";
+			return lisGioHangs.size() + "";
 		}
 		return "";
-		
+
+	}
+
+	@GetMapping("xoaGioHang")
+	@ResponseBody
+	public void xoaGioHang(HttpSession httpSession, @RequestParam int maSanPham, @RequestParam int maSize,
+			@RequestParam int maMau) {
+		if (httpSession.getAttribute("gioHang") != null) {
+			int viTri = kiemTraSanPhamDaTonTaiGioHang(httpSession, maSanPham, maSize, maMau);
+			List<gioHang> lisGioHangs = (List<gioHang>) httpSession.getAttribute("gioHang");
+			lisGioHangs.remove(viTri);
+
+		}
+
+	}
+
+	@GetMapping("updateSanPham")
+	@ResponseBody
+	public void updateSanPham(HttpSession httpSession, @RequestParam int maSanPham, @RequestParam int maSize,
+			@RequestParam int maMau, @RequestParam int soLuong) {
+		if (httpSession.getAttribute("gioHang") != null) {
+			int viTri = kiemTraSanPhamDaTonTaiGioHang(httpSession, maSanPham, maSize, maMau);
+			List<gioHang> lisGioHangs = (List<gioHang>) httpSession.getAttribute("gioHang");
+			lisGioHangs.get(viTri).setSoLuong(soLuong);
+		}
 	}
 }

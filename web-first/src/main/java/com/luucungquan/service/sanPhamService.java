@@ -36,4 +36,10 @@ public class sanPhamService implements sanPhamImpl {
 		return sanPhamDAO.chiTietSanPham(maSanPham);
 	}
 
+	@Override
+	public List<sanPham> laySanPhamTheoMaDanhMuc(int maDanhMuc) {
+	
+		return sanPhamDAO.laySanPhamTheoMaDanhMuc(maDanhMuc);
+	}
+
 }

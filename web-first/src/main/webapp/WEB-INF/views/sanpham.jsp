@@ -17,17 +17,17 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a href="../trangchu/" class="navbar-brand" href="#"><img
-						src='<c:url value="../resources/images/Wikipedia-logo-v2_2023_Tet_Holiday.svg.png"/>'
+						src='<c:url value="../../resources/images/Wikipedia-logo-v2_2023_Tet_Holiday.svg.png"/>'
 						style="height: 40px; margin: -7px;"></a>
 				</div>
 				<ul class="nav navbar-nav ">
-					<li class="active"><a href="../trangchu/">TRANG CHỦ</a></li>
+					<li class="active"><a href="../../trangchu/">TRANG CHỦ</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#"> SẢN PHẨM<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<c:forEach var="danhmucsanpham" items="${danhMucSanPham }">
 								<li><a
-									href="../sanpham/${danhmucsanpham.getMaDanhMuc()}/${danhmucsanpham.getTenDanhMuc()}">${danhmucsanpham.getTenDanhMuc()}</a></li>
+									href="../../sanpham/${danhmucsanpham.getMaDanhMuc()}/${danhmucsanpham.getTenDanhMuc()}">${danhmucsanpham.getTenDanhMuc()}</a></li>
 							</c:forEach>
 						</ul></li>
 					<li><a href="#">DỊCH VỤ</a></li>
@@ -36,8 +36,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${chuCaiDau != null}">
-							<li><a
-								style="background: rgb(113, 83, 189); height: 32px; width: 32px; border-radius: 16px; padding: 14px; padding-top: 7px; margin-top: 6px;"
+							<li><a style="background: rgb(113, 83, 189); height: 32px; width: 32px; border-radius: 16px; padding: 14px; padding-top: 7px; margin-top: 6px;"
 								href="../dangnhap/">${chuCaiDau}</a></li>
 						</c:when>
 						<c:otherwise>
@@ -50,8 +49,8 @@
 
 
 
-					<li id="xegiohang"><a href="../giohang/"><img
-							src='<c:url value="../resources/images/Ic_shopping_cart_48px.svg.png"/>'
+					<li id="xegiohang"><a href="../../giohang/"><img
+							src='<c:url value="../../resources/images/Ic_shopping_cart_48px.svg.png"/>'
 							style="height: 25px; margin-right: 0px;"> <c:choose>
 								<c:when test="${soLuongSanPham <= 0|| soLuongSanPham== null }">
 									<div>
@@ -67,6 +66,12 @@
 
 							</c:choose> </a></li>
 
+
+
+
+
+
+
 				</ul>
 			</div>
 		</nav>
@@ -75,64 +80,40 @@
 	<!-- phần đầu   -->
 	<div class="contanier">
 		<div class="row">
-			<div class="col-md-2 col-sm-2">
+			<div class="col-md-2 col-sm-2" style="    padding-top: 65px;">
 				<h3>danh mục sản phẩm</h3>
 				<ul>
 					<c:forEach var="danhmucsanpham" items="${danhMucSanPham }">
-						<li><a>${danhmucsanpham.getTenDanhMuc()}</a></li>
+						<li><a
+							href="../../sanpham/${danhmucsanpham.getMaDanhMuc()}/${danhmucsanpham.getTenDanhMuc()}">${danhmucsanpham.getTenDanhMuc()}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
 
-			<div class="col-md-8 col-sm-8 ">
-				<div class="row">
-					<div class="col-md-4 col-sm-4 ">
-						<img id="hinhanh" data-hinhanh="${sanPham.getHinhSanPham()}"
-							style="max-width: 100%;"
-							src='<c:url  value="../resources/images/sanpham/${sanPham.getHinhSanPham()}"/>' />
-					</div>
-					<div class="col-md-8 col-sm-8">
-						<h3 id="tensanpham" data-tensanpham="${sanPham.getMaSanPham()}">${ sanPham.getTenSanPham()}</h3>
-						<h4 style="color: red;" id="giatien"
-							data-value="${sanPham.getGiaTien()}">${sanPham.getGiaTien()}VNĐ</h4>
-						<table class="table">
-							<head>
-							<tr>
-								<td><h4>MÀU SẢN PHẨM</h4></td>
-								<td><h4>SIZE SẢN PHẨM</h4></td>
-								<td><h4>SỐ LƯỢNG</h4></td>
-								<td><h4></h4></td>
-							</tr>
+			<div class="col-md-10 col-sm-10 " >
+			
+				<div id="title-product">
+					<span>${tenDanhMuc }</span>
 
-							</head>
-							<tbody>
-								<c:forEach var="chiTietSanPham" items="${chiTietSanPham  }">
-									<tr>
-										<td class="maMau"
-											data-maMau="${chiTietSanPham .getMaMau().getMaMau()}">${chiTietSanPham .getMaMau().getTenMau()}</td>
-										<!-- vì mã màu và mã size mỗi dòng lại một cái lên ta phải đặt data -mamau để phân biệt các cái mã màu còn lại
-											vì tất cả cùng một tên vì ta duyệt for each lên ta phải làm như vậy vì mỗi cái có
-											một ma chitietsanpham khac nhau lên moi phân việt được
-											 -->
-										<td class="maSize"
-											data-maSize="${chiTietSanPham .getMaSize().getMaSize()}">${chiTietSanPham .getMaSize().getSize()}</td>
-										<td class="soluong">${chiTietSanPham.getSoLuong()}</td>
-										<td><button
-												data-machitiet="${chiTietSanPham .getMaChiTietSanPham() }"
-												class="btn btn-primary themgiohang "
-												style="background-color: rgb(113, 83, 189);">Giỏ
-												Hàng</button></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+					<div class="row">
+						<c:forEach var="listSanPham" items="${listSanPham}">
+							<div class="col-md-3">
+								<a href="../../chitietsanpham/ ${ listSanPham.getMaSanPham() }">
+									<div class=" product " style="height: 371 px;">
+										<img
+											src='<c:url  value="../../resources/images/sanpham/${listSanPham.getHinhSanPham() }" />'
+											alt=""><br /> <span style="font-size: 14px;">${listSanPham.getTenSanPham() }</span><br />
+										<span class="gia">${listSanPham.getGiaTien() } VNĐ</span>
+									</div>
+								</a>
+							</div>
+						</c:forEach>
+
+
 					</div>
+
 				</div>
 			</div>
-			<div class="col-md-2 col-sm-2">
-				<span>${sanPham.getMoTa() }</span>
-			</div>
-
 
 
 		</div>

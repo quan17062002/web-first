@@ -21,7 +21,7 @@ import com.luucungquan.service.sanPhamService;
 
 @Controller
 @RequestMapping("chitietsanpham/")
-@SessionAttributes("gioHang")
+@SessionAttributes({"gioHang","email"})
 public class chiTietSanPhamController {
 	@Autowired
 	sanPhamService sanPhamService;
