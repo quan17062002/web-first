@@ -140,4 +140,10 @@ body, html {
 	padding-left: 40px;
 }
 
+/*  ẩn chi tiết sản phẩm */
+#chiTietSanPham{
+	display: none;
+}
+
+/*   end ẩn chi tiết sản phẩm*/
 

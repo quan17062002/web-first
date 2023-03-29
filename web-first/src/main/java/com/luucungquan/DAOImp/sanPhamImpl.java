@@ -15,4 +15,5 @@ public interface sanPhamImpl {
 	public List<chiTietSanPham> chiTietSanPham(int maSanPham);
     
 	public List<sanPham> laySanPhamTheoMaDanhMuc(int maDanhMuc);
+	public void xoaSanPhamTheoMa(int maSanPham);
 }

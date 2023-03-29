@@ -3,6 +3,7 @@ package com.luucungquan.entities;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

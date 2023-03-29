@@ -13,7 +13,7 @@ public class chiTietHoaDonService implements chiTietHoaDon {
 
 	@Override
 	public boolean themChiTietHoaDon(com.luucungquan.entities.chiTietHoaDon chiTietHoaDon) {
-		// TODO Auto-generated method stub
+	
 		return chiTietHoaDonDAO.themChiTietHoaDon(chiTietHoaDon);
 	}
 

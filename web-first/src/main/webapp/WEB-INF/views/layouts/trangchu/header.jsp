@@ -34,7 +34,7 @@
 								class="glyphicon glyphicon-user"></span>Sign Up </a></li>
 					</c:otherwise>
 				</c:choose>
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+				<li><a href="../dashbor/"><span class="glyphicon "></span>Admin</a></li>
 				<li><a href="../giohang/"><img
 						src='<c:url value="../resources/images/Ic_shopping_cart_48px.svg.png"/>'
 						style="height: 25px; margin-right: 0px;">
@@ -55,9 +55,10 @@
 			</ul>
 		</div>
 	</nav>
-	<div class="event_header container wow bounceInUp"
+	<div  class="event_header container wow bounceInUp"
 		data-wow-duration="2s">
-		<span>ngày tháng năm</span><br /> <span style="font-size: 50px;">MUA
+	<div id="timer"></div><br /> 
+	<span style="font-size: 50px;">MUA
 			1 TẶNG 1</span><br />
 		<button>Xem ngay</button>
 

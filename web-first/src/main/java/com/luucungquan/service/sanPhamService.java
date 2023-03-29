@@ -2,8 +2,6 @@ package com.luucungquan.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +38,11 @@ public class sanPhamService implements sanPhamImpl {
 	public List<sanPham> laySanPhamTheoMaDanhMuc(int maDanhMuc) {
 	
 		return sanPhamDAO.laySanPhamTheoMaDanhMuc(maDanhMuc);
+	}
+
+	@Override
+	public void xoaSanPhamTheoMa(int maSanPham) {
+        sanPhamDAO.xoaSanPhamTheoMa(maSanPham);
 	}
 
 }

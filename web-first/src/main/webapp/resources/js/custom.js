@@ -22,6 +22,19 @@ $(document).ready(function() {
 
 		})
 	});
+
+
+
+
+	/*  $(document).ready(function() {
+		setInterval(function() {
+		  $.get('/get_datetime', function(data) {
+			$("#timer").html(data);
+		  });
+		}, 1000);
+	  });
+	*/
+
 	$("#dangnhap").click(function() {
 		duongDanHienTai = window.location.href;
 		duongDan = duongDanHienTai.replace("/dangky/", "/dangnhap/");
@@ -96,7 +109,7 @@ $(document).ready(function() {
 
 			tongTienSp = tongTienSp + tongtien;
 		});
-      
+
 		var formatTongTien = tongTienSp.toLocaleString('vi-VN');
 		$(".tongtien").html(formatTongTien + " VNĐ");
 
@@ -134,7 +147,7 @@ $(document).ready(function() {
 
 
 		});
-	})
+	});
 	$(".xoaGioHang").click(function() {
 		var self = $(this);
 		var maSize = $(this).closest("tr").find(".maSize").attr("data-maSize");
@@ -156,9 +169,93 @@ $(document).ready(function() {
 			}
 		});
 	});
+	$("body").on("click", ".page-item", function() {
+		$(".page-item").removeClass("active");
+		$(this).addClass("active");
+
+		var sotrang = $(this).text();
+		var spbatdau = (sotrang - 1) * 5;
+		$.ajax({
+
+			url: "/web-first/api/laySanPham",
+			method: 'GET',
+			data: {
+				spBatDau: spbatdau,
+			},
+			success: function(value) {
+
+				var phantrang = $("#phantrang-dashbor").find("tbody");
+				phantrang.empty();
+				phantrang.append(value);
+			}
+		});
+	});
+	$("#checkall :checkbox").change(function() {
+		if (this.checked) {
+			$("#phantrang-dashbor > tbody input").each(function() {
+				$(this).prop("checked", true);
+			});
+		} else {
+			$("#phantrang-dashbor > tbody input").each(function() {
+				$(this).prop("checked", false);
+			});
+		}
+	});
 
 
 
+
+
+	$("#xoa-sanpham").click(function() {
+		$("#phantrang-dashbor input:checked").each(function() {
+			var maSanPham = $(this).val();
+			$(this).closest("tr").remove();
+			$.ajax({
+
+				url: "/web-first/api/xoasanpham",
+				method: 'GET',
+				data: {
+					maSanPham: maSanPham,
+
+				},
+				success: function(value) {
+					$(this).closest("tr").remove();
+				}
+			});
+		});
+	});
+
+
+
+	/* cai nay la up load nhieu file tao mot mang */
+
+	var files = [];
+$("#hinhSanPham").change(function(event) {
+  files = event.target.files;
+  forms = new FormData();
+  forms.append("file", files[0])
+  $.ajax({
+
+    url: "/web-first/api/UpLoadFile",
+    method: 'POST',
+    data: forms,
+    contentType: false,
+    processData: false,
+
+    success: function(value) {
+
+    }
+  });
+});
+$("body").on("click",".btn-themchitiet",function(){
+  $(this).remove();
+  var chitietclone = $("#chitietsanpham").clone().removeAttr("id");
+  $("#containerchitietsanpham").append(chitietclone);
+});
+$("#btnThemSanPham").click(function(){
+alert("jasfkajs");
+});
 
 })
+
 

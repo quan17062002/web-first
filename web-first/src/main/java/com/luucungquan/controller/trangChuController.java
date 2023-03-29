@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.luucungquan.entities.danhMucSanPham;
 import com.luucungquan.entities.gioHang;
@@ -43,7 +42,7 @@ public class trangChuController {
 			modelMap.addAttribute("soLuongSanPham", lisGioHangs.size());
 			modelMap.addAttribute("lisGioHangs", lisGioHangs);
 		}
-		List<sanPham>listSanPham = sanPhamService.listSanPhamLimit(0);
+		List<sanPham>listSanPham = sanPhamService.listSanPhamLimit(-1);
 	 modelMap.addAttribute("listSanPham", listSanPham);
 	 List<danhMucSanPham> danhMucSanPham = danhMucSanPhamService.danhMucSanPham();
 	 modelMap.addAttribute("danhMucSanPham", danhMucSanPham);

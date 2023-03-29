@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <title>LƯU CUNG QUÂN</title>
 </head>
-<body>
+<body >
 
 	<%@include file="/WEB-INF/views/layouts/trangchu/header.jsp"%>
 	<decorator:body />

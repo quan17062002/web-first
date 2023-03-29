@@ -1,8 +1,12 @@
 package com.luucungquan.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.luucungquan.entities.gioHang;
 import com.luucungquan.entities.mauSanPham;
+import com.luucungquan.entities.sanPham;
 import com.luucungquan.service.nhanVienService;
+import com.luucungquan.service.sanPhamService;
 
 @Controller
 @RequestMapping("/api")
@@ -25,6 +33,8 @@ import com.luucungquan.service.nhanVienService;
 public class apiController {
 	@Autowired
 	nhanVienService nhanVienService;
+	@Autowired
+	sanPhamService sanPhamService;
 
 	@PostMapping("dangnhap")
 	@ResponseBody
@@ -76,7 +86,7 @@ public class apiController {
 
 			} else {
 				List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
-				int soLuongMoi = gioList.get(viTri).getSoLuong()+1;
+				int soLuongMoi = gioList.get(viTri).getSoLuong() + 1;
 				gioList.get(viTri).setSoLuong(soLuongMoi);
 			}
 			List<gioHang> gioList = (List<com.luucungquan.entities.gioHang>) httpSession.getAttribute("gioHang");
@@ -122,7 +132,7 @@ public class apiController {
 
 	}
 
-	@GetMapping("updateSanPham")
+	@GetMapping(value = "updateSanPham", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public void updateSanPham(HttpSession httpSession, @RequestParam int maSanPham, @RequestParam int maSize,
 			@RequestParam int maMau, @RequestParam int soLuong) {
@@ -132,4 +142,59 @@ public class apiController {
 			lisGioHangs.get(viTri).setSoLuong(soLuong);
 		}
 	}
+
+	@GetMapping("laySanPham")
+	@ResponseBody
+	public String laySanPham(@RequestParam int spBatDau) {
+		String html = "";
+		List<sanPham> lisPhams = sanPhamService.listSanPhamLimit(spBatDau);
+		for (sanPham sanPham : lisPhams) {
+			html += "<tr>";
+			html += "<td> <div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='"
+					+ sanPham.getMaSanPham() + "'></label></div></td>";
+			html += "<td class='tenSanPham' data-maSanPham='" + sanPham.getMaSanPham() + "'>" + sanPham.getTenSanPham()
+					+ "</td>";
+			html += "<td class='giaTien'>" + sanPham.getGiaTien() + "</td>";
+			html += "<td class='danhCho'>" + sanPham.getGianhCho() + "</td>";
+			html += "</tr>";
+
+		}
+
+		System.out.println(html);
+		return html;
+
+	}
+
+	@GetMapping("xoasanpham")
+	@ResponseBody
+	public String xoaSanPhamTheoMa(@RequestParam int maSanPham) {
+		sanPhamService.xoaSanPhamTheoMa(maSanPham);
+
+		return "";
+	}
+	
+	@Autowired
+	ServletContext servletContext;
+	@PostMapping("UpLoadFile")
+	@ResponseBody
+	public String upLoadFile(MultipartHttpServletRequest request) {
+		
+		String path_save_file = servletContext.getRealPath("/resources/images/sanpham/");
+		Iterator<String> lisIterator = request.getFileNames();
+		MultipartFile multipartFile = request.getFile(lisIterator.next());
+		File file = new File(path_save_file +multipartFile.getOriginalFilename() );
+		try {
+			multipartFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(path_save_file);
+		
+		return "true";
+	}
+
 }

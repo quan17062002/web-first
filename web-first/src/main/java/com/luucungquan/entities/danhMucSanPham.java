@@ -3,6 +3,7 @@ package com.luucungquan.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="danhmucsanpham")
@@ -26,8 +27,32 @@ public class danhMucSanPham {
 	private int maDanhMuc;
 	private String tenDanhMuc;
 	private String hinhDanhMuc;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "maDanhMuc")
+	@OneToMany(mappedBy = "maDanhMuc",cascade = CascadeType.ALL)
 	private Set<sanPham>listSanPham= new HashSet<sanPham>();
+	public int getMaDanhMuc() {
+		return maDanhMuc;
+	}
+	public void setMaDanhMuc(int maDanhMuc) {
+		this.maDanhMuc = maDanhMuc;
+	}
+	public String getTenDanhMuc() {
+		return tenDanhMuc;
+	}
+	public void setTenDanhMuc(String tenDanhMuc) {
+		this.tenDanhMuc = tenDanhMuc;
+	}
+	public String getHinhDanhMuc() {
+		return hinhDanhMuc;
+	}
+	public void setHinhDanhMuc(String hinhDanhMuc) {
+		this.hinhDanhMuc = hinhDanhMuc;
+	}
+	public Set<sanPham> getListSanPham() {
+		return listSanPham;
+	}
+	public void setListSanPham(Set<sanPham> listSanPham) {
+		this.listSanPham = listSanPham;
+	}
 	
 
 }
