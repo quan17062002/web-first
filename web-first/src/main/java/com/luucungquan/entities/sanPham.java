@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,64 +39,83 @@ public class sanPham {
 	private String hinhSanPham;
 	private String gianhCho;
 	@OneToMany(mappedBy = "maSanPham", cascade = CascadeType.ALL)
-	private Set<chiTietSanPham>chiTietSanPhams;
+	private Set<chiTietSanPham> chiTietSanPhams;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "chiTietKhuyenMai", joinColumns = { @JoinColumn(name = "maSanPham") }, inverseJoinColumns = {
 			@JoinColumn(name = "maKhuyenMai") })
 	private Set<khuyenMai> danhSachKhuyenMai;
+
 	public int getMaSanPham() {
 		return maSanPham;
 	}
+
 	public void setMaSanPham(int maSanPham) {
 		this.maSanPham = maSanPham;
 	}
+
 	public danhMucSanPham getMaDanhMuc() {
 		return maDanhMuc;
 	}
+
 	public void setMaDanhMuc(danhMucSanPham maDanhMuc) {
 		this.maDanhMuc = maDanhMuc;
 	}
+
 	public String getTenSanPham() {
 		return tenSanPham;
 	}
+
 	public void setTenSanPham(String tenSanPham) {
 		this.tenSanPham = tenSanPham;
 	}
+
 	public String getGiaTien() {
 		return giaTien;
 	}
+
 	public void setGiaTien(String giaTien) {
 		this.giaTien = giaTien;
 	}
+
 	public String getMoTa() {
 		return moTa;
 	}
+
 	public void setMoTa(String moTa) {
 		this.moTa = moTa;
 	}
+
 	public String getHinhSanPham() {
 		return hinhSanPham;
 	}
+
 	public void setHinhSanPham(String hinhSanPham) {
 		this.hinhSanPham = hinhSanPham;
 	}
+
 	public String getGianhCho() {
 		return gianhCho;
 	}
+
 	public void setGianhCho(String gianhCho) {
 		this.gianhCho = gianhCho;
 	}
+
 	public Set<chiTietSanPham> getChiTietSanPhams() {
 		return chiTietSanPhams;
 	}
+
 	public void setChiTietSanPhams(Set<chiTietSanPham> chiTietSanPhams) {
 		this.chiTietSanPhams = chiTietSanPhams;
 	}
+
 	public Set<khuyenMai> getDanhSachKhuyenMai() {
 		return danhSachKhuyenMai;
 	}
+
 	public void setDanhSachKhuyenMai(Set<khuyenMai> danhSachKhuyenMai) {
 		this.danhSachKhuyenMai = danhSachKhuyenMai;
 	}
-	
+
+
 }

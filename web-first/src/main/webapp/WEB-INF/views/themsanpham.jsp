@@ -14,7 +14,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript">
 	
 	
+	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
 
 
 </script>
@@ -64,54 +68,43 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-6 col-sm -12">
 
 					<h2>Thêm Sản Phẩm</h2>
-					<form  id = "form_sanpham"  action="">
+					<form id="form_sanpham" action="">
 
-						<div class="form-group">
-							<label for="tenSanPham">Tên sản phẩm:</label> <input type="text"
-								class="form-control" id="tenSanPham" name="tenSanPham" required>
-						</div>
-						<div>
-							<label for="danhMucSanPham" class="form-label"
-								style="font-weight: 400";>Danh Mục Sản Phẩm:</label> <select
-								class="form-select" id="danhMucSanPham"
-								style="padding: 5px; width: 100%;">
-								<c:forEach var="danhMucSanPham" items="${ danhMucSanPham}">
-									<option value="${danhMucSanPham.getMaDanhMuc() }">${danhMucSanPham.getTenDanhMuc()}</option>
-								</c:forEach>
-							</select> <br>
-						</div>
-						<div class="form-group">
-							<label for="moTa">Mô tả:</label>
-							<textarea class="form-control" id="moTa" name="moTa"></textarea>
-						</div>
-						<div class="form-group">
-							<label for="gia">Giá:</label> <input type="number"
-								class="form-control" id="giaTien" name="giaTien" required>
-						</div>
+
+						<label for="tenSanPham">Tên sản phẩm:</label> <input type="text"
+							class="form-control" id="tenSanPham" name="tenSanPham" required>
+
+						<label for="danhMucSanPham" class="form-label"
+							style="font-weight: 400";>Danh Mục Sản Phẩm:</label> <select
+							class="form-select" id="danhMucSanPham" name="danhMucSanPham"
+							style="padding: 5px; width: 100%;">
+							<c:forEach var="danhMucSanPham" items="${ danhMucSanPham}">
+								<option value="${danhMucSanPham.getMaDanhMuc() }">${danhMucSanPham.getTenDanhMuc()}</option>
+							</c:forEach>
+						</select> <br> <label for="moTa">Mô tả:</label>
+						<textarea class="form-control" id="moTa" name="moTa"></textarea>
+						<label for="giaTien">Giá:</label> <input type="number"
+							class="form-control" id="giaTien" name="giaTien" required>
 
 
 
-						<div class="form-check-inline">
-							<span>Dành Cho</span> <label
-								class="form-check-label radio-inline" for="check1"> <input
-								type="radio" class="form-check-input" id="check1"
-								name="gianhCho" value="something" checked>Nam
-							</label> <label class="form-check-label radio-inline" for="check2">
-								<input type="radio" class="form-check-input" id="check1"
-								name="gianhCho" value="something">Nữ
-							</label>
-						</div>
+						<span>Giành Cho</span> <label
+							class="form-check-label radio-inline" for="gianhCho"> <input
+							type="radio" class="form-check-input" id="gianhCho"
+							name="gianhCho" value="Nam" checked>Nam
+						</label> <label class="form-check-label radio-inline" for="gianhCho">
+							<input type="radio" class="form-check-input" id="gianhCho"
+							name="gianhCho" value="Nữ">Nữ
+						</label></br> <label for="hinhSanPham">Ảnh sản phẩm:</label> <input type="file"
+							class="form-control-file" id="hinhSanPham" name="hinhSanPham">
 
-						<div class="form-group">
-							<label for="hinhSanPham">Ảnh sản phẩm:</label> <input type="file"
-								class="form-control-file" id="hinhSanPham" name="hinhSanPham">
-						</div>
-						</form>
-						<div id ="containerchitietsanpham">
+						<div id="containerchitietsanpham">
 							<div class="chiTietSanPham">
 
-								<h3>Chi Tiết Sản Phẩm</h3></br>
-								 <label for="danhSachMauSanPham" class="form-label" style="font-weight: 400";>Màu Sản Phẩm</label> <select class="form-select" id="danhSachMauSanPham"
+								<h3>Chi Tiết Sản Phẩm</h3>
+								</br> <label for="danhSachMauSanPham" class="form-label"
+									style="font-weight: 400";>Màu Sản Phẩm</label> <select
+									class="form-select" id="danhSachMauSanPham"
 									style="padding: 5px; width: 100%;">
 									<c:forEach var="danhSachMauSanPham"
 										items="${ danhSachMauSanPham}">
@@ -124,18 +117,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<c:forEach var="laySizeSanPham" items="${ laySizeSanPham}">
 										<option value="${laySizeSanPham.getMaSize() }">${laySizeSanPham.getSize()}</option>
 									</c:forEach>
-								</select> <br> <label for="soLuong">Số lượng:</label> <input
-									type="number" class="form-control" id="soLuong" name="soLuong">
+								</select> <br> <label for="soLuong">Số lượng:</label> <input min="1"
+									value="1" type="number" class="form-control" id="soLuong"
+									name="soLuong">
 
 								<button type="button"
 									class="btn btn-primary float-right btn-themchitiet "
-									style="margin: 22px; margin-left: 10px;">Thêm
-									Chi Tiết</button>
+									style="margin: 22px; margin-left: 10px;">Thêm Chi Tiết</button>
 							</div>
 						</div>
 
 
-						<div id ="chitietsanpham" class="chiTietSanPham">
+						<div id="chitietsanpham" class="chiTietSanPham">
 
 							<h3>Chi Tiết Sản Phẩm</h3>
 							</br> <label for="danhSachMauSanPham" class="form-label"
@@ -153,22 +146,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<c:forEach var="laySizeSanPham" items="${ laySizeSanPham}">
 									<option value="${laySizeSanPham.getMaSize() }">${laySizeSanPham.getSize()}</option>
 								</c:forEach>
-							</select> <br> 
-							<label for="soLuong">Số lượng:</label> <input
-								type="number" class="form-control" id="soLuong" name="soLuong">
+							</select> <br> <label for="soLuong">Số lượng:</label> <input min="1"
+								value="1" type="number" class="form-control" id="soLuong"
+								name="soLuong">
 
 							<button type="button"
 								class="btn btn-primary float-right btn-themchitiet "
-								style="margin: 22px; margin-left: 10px;">Thêm
-								Chi Tiết</button>
+								style="margin: 22px; margin-left: 10px;">Thêm Chi Tiết</button>
 
 						</div>
 
 
-						<button type="submit"  id="btnThemSanPham" class="btn btn-primary float-right "
-							style="margin: 22px;">Thêm sản phẩm</button>
+						<button type="submit" id="btnThemSanPham"
+							class="btn btn-primary float-right " style="margin: 22px;">Thêm
+							sản phẩm</button>
 
-					
+					</form>
 
 
 

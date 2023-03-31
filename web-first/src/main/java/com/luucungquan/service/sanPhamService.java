@@ -45,4 +45,10 @@ public class sanPhamService implements sanPhamImpl {
         sanPhamDAO.xoaSanPhamTheoMa(maSanPham);
 	}
 
+	@Override
+	public boolean themSanPham(sanPham sanPham) {
+		
+		return sanPhamDAO.themSanPham(sanPham);
+	}
+
 }

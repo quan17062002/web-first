@@ -230,31 +230,68 @@ $(document).ready(function() {
 	/* cai nay la up load nhieu file tao mot mang */
 
 	var files = [];
-$("#hinhSanPham").change(function(event) {
-  files = event.target.files;
-  forms = new FormData();
-  forms.append("file", files[0])
-  $.ajax({
+	var tenHinh = "";
+	$("#hinhSanPham").change(function(event) {
+		files = event.target.files;
+		tenHinh = files[0].name;
+		forms = new FormData();
+		forms.append("file", files[0])
+		$.ajax({
 
-    url: "/web-first/api/UpLoadFile",
-    method: 'POST',
-    data: forms,
-    contentType: false,
-    processData: false,
+			url: "/web-first/api/UpLoadFile",
+			method: 'POST',
+			data: forms,
+			contentType: false,
+			processData: false,
 
-    success: function(value) {
+			success: function(value) {
 
-    }
-  });
-});
-$("body").on("click",".btn-themchitiet",function(){
-  $(this).remove();
-  var chitietclone = $("#chitietsanpham").clone().removeAttr("id");
-  $("#containerchitietsanpham").append(chitietclone);
-});
-$("#btnThemSanPham").click(function(){
-alert("jasfkajs");
-});
+			}
+		});
+	});
+	$("body").on("click", ".btn-themchitiet", function() {
+		$(this).remove();
+		var chitietclone = $("#chitietsanpham").clone().removeAttr("id");
+		$("#containerchitietsanpham").append(chitietclone);
+	});
+	$("#btnThemSanPham").click(function(e) {
+		e.preventDefault();
+		var formdata = $(form_sanpham).serializeArray();
+
+
+		json = {};
+		arrayChitiet = [];
+
+		$.each(formdata, function(i, file) {
+				json[file.name] = file.value;
+
+		});
+		$("#containerchitietsanpham > .chiTietSanPham").each(function() {
+			objectChitiet = {};
+			var mauSanPham = $(this).find("#danhSachMauSanPham").val();
+			var sizeSanPham = $(this).find("#laySizeSanPham").val();
+			var soLuong = $(this).find("#soLuong").val();
+			objectChitiet["mauSanPham"] = mauSanPham;
+			objectChitiet["sizeSanPham"] = sizeSanPham;
+			objectChitiet["soLuong"] = soLuong;
+			arrayChitiet.push(objectChitiet);
+		})
+		json["chiTietSanPham"] = arrayChitiet;
+		json["hinhSanPham"] = tenHinh;
+		$.ajax({
+
+			url: "/web-first/api/themsanpham",
+			method: 'POST',
+			data: {
+				datajson: JSON.stringify(json)
+			},
+			success: function(value) {
+			}
+		});
+		console.log(json);
+
+
+	});
 
 })
 

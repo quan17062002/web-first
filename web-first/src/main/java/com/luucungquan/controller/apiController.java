@@ -3,8 +3,10 @@ package com.luucungquan.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -21,9 +23,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.luucungquan.entities.chiTietSanPham;
+import com.luucungquan.entities.danhMucSanPham;
 import com.luucungquan.entities.gioHang;
 import com.luucungquan.entities.mauSanPham;
 import com.luucungquan.entities.sanPham;
+import com.luucungquan.entities.sizeSanPham;
 import com.luucungquan.service.nhanVienService;
 import com.luucungquan.service.sanPhamService;
 
@@ -172,17 +181,18 @@ public class apiController {
 
 		return "";
 	}
-	
+
 	@Autowired
 	ServletContext servletContext;
+
 	@PostMapping("UpLoadFile")
 	@ResponseBody
 	public String upLoadFile(MultipartHttpServletRequest request) {
-		
+
 		String path_save_file = servletContext.getRealPath("/resources/images/sanpham/");
 		Iterator<String> lisIterator = request.getFileNames();
 		MultipartFile multipartFile = request.getFile(lisIterator.next());
-		File file = new File(path_save_file +multipartFile.getOriginalFilename() );
+		File file = new File(path_save_file + multipartFile.getOriginalFilename());
 		try {
 			multipartFile.transferTo(file);
 		} catch (IllegalStateException e) {
@@ -193,8 +203,57 @@ public class apiController {
 			e.printStackTrace();
 		}
 		System.out.println(path_save_file);
-		
+
 		return "true";
 	}
 
+	@PostMapping("themsanpham")
+	@ResponseBody
+	public void themSanPham(@RequestParam String datajson) {
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode json;
+		try {
+			sanPham sanPham = new sanPham();
+			json = mapper.readTree(datajson);
+			danhMucSanPham danhMucSanPham = new danhMucSanPham();
+			danhMucSanPham.setMaDanhMuc(json.get("danhMucSanPham").asInt());
+
+			JsonNode jsonChiTiet = json.get("chiTietSanPham");
+			Set<chiTietSanPham> listChiTietSanPhams = new HashSet<chiTietSanPham>();
+			for (JsonNode objectChitiet : jsonChiTiet) {
+				chiTietSanPham chiTietSanPham = new chiTietSanPham();
+
+				mauSanPham mauSanPham = new mauSanPham();
+				mauSanPham.setMaMau(objectChitiet.get("mauSanPham").asInt());
+
+				sizeSanPham sizeSanPham = new sizeSanPham();
+				sizeSanPham.setMaSize(objectChitiet.get("sizeSanPham").asInt());
+                chiTietSanPham.setMaSanPham(sanPham);
+				chiTietSanPham.setMaMau(mauSanPham);
+				chiTietSanPham.setMaSize(sizeSanPham);
+				chiTietSanPham.setSoLuong(objectChitiet.get("soLuong").asInt());
+				listChiTietSanPhams.add(chiTietSanPham);
+			}
+			String tenSanPham = json.get("tenSanPham").asText();
+			String giaTien = json.get("giaTien").asText();
+			String moTa = json.get("moTa").asText();
+			String hinhSanPham = json.get("hinhSanPham").asText();
+			String gianhCho = json.get("gianhCho").asText();
+
+			sanPham.setChiTietSanPhams(listChiTietSanPhams);
+			sanPham.setMaDanhMuc(danhMucSanPham);
+			sanPham.setTenSanPham(tenSanPham);
+			sanPham.setGiaTien(giaTien);
+			sanPham.setMoTa(moTa);
+			sanPham.setHinhSanPham(hinhSanPham);
+			sanPham.setGianhCho(gianhCho);
+
+			sanPhamService.themSanPham(sanPham);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
