@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+	var maSanPham = 0;
 	$("#btdangnhap").click(function() {
 		var email = $("#email").val();
 		var matKhau = $("#matKhau").val();
@@ -263,7 +265,7 @@ $(document).ready(function() {
 		arrayChitiet = [];
 
 		$.each(formdata, function(i, file) {
-				json[file.name] = file.value;
+			json[file.name] = file.value;
 
 		});
 		$("#containerchitietsanpham > .chiTietSanPham").each(function() {
@@ -271,6 +273,7 @@ $(document).ready(function() {
 			var mauSanPham = $(this).find("#danhSachMauSanPham").val();
 			var sizeSanPham = $(this).find("#laySizeSanPham").val();
 			var soLuong = $(this).find("#soLuong").val();
+
 			objectChitiet["mauSanPham"] = mauSanPham;
 			objectChitiet["sizeSanPham"] = sizeSanPham;
 			objectChitiet["soLuong"] = soLuong;
@@ -288,11 +291,103 @@ $(document).ready(function() {
 			success: function(value) {
 			}
 		});
-		console.log(json);
-
-
 	});
 
+	$("body").on("click", ".capNhatSanPham", function() {
+		maSanPham = $(this).attr("data-id");
+		$(".nutcapnhatsanpham").removeClass("hidden");
+		$("#btnThemSanPham").addClass("hidden");
+
+
+		$.ajax({
+
+			url: "/web-first/api/laydanhsachtheoma",
+			method: 'POST',
+			data: {
+				maSanPham: maSanPham
+			},
+			success: function(value) {
+
+				$("#tenSanPham").val(value.tenSanPham);
+				$("#moTa").val(value.moTa);
+				$("#giaTien").val(value.giaTien);
+				if (value.gianhCho === "Nam") {
+					$("#rd-nam").prop('checked', true);
+				} else {
+					$("#rd-nu").prop('checked', true);
+				}
+				console.log(value)
+				$("#danhMucSanPham").val(value.maDanhMuc.maDanhMuc);
+
+
+				$("#containerchitietsanpham").empty();
+				/*vì value.chitietsanpham là một mảng vì ta làm như thế nên phải tạo vòng lặp for để duyệt nó*/
+				var containerchitietsanpham = value.chiTietSanPhams.length
+				for (i = 0; i < containerchitietsanpham; i++) {
+					var chitietclone = $("#chitietsanpham").clone().removeAttr("id");
+					if (i < containerchitietsanpham - 1) {
+						chitietclone.find("#themchitietsanpham").remove();
+
+					}
+
+					/* cái trên  có tác dụng sao chép nội dung html của cái nó tham chiều đến và removeattr là xóa id đi 
+					vì id định một cái là ẩn tác dụng để có thể cho nhiều các phần chi tiết
+					*/
+					chitietclone.find("#danhSachMauSanPham").val(value.chiTietSanPhams[i].maMau.maMau);
+					chitietclone.find("#soLuong").val(value.chiTietSanPhams[i].soLuong);
+					chitietclone.find("#laySizeSanPham").val(value.chiTietSanPhams[i].maSize.maSize);
+					$("#containerchitietsanpham").append(chitietclone);
+
+
+
+
+				}
+			}
+		});
+	});
+	/*cập nhật sản phẩm*/
+	$("#btncapnhatsanpham").click(function(e) {
+		e.preventDefault();
+		var formdata = $(form_sanpham).serializeArray();
+
+
+		json = {};
+		arrayChitiet = [];
+
+		$.each(formdata, function(i, file) {
+			json[file.name] = file.value;
+
+		});
+		$("#containerchitietsanpham > .chiTietSanPham").each(function() {
+			objectChitiet = {};
+			var mauSanPham = $(this).find("#danhSachMauSanPham").val();
+			var sizeSanPham = $(this).find("#laySizeSanPham").val();
+			var soLuong = $(this).find("#soLuong").val();
+
+			objectChitiet["mauSanPham"] = mauSanPham;
+			objectChitiet["sizeSanPham"] = sizeSanPham;
+			objectChitiet["soLuong"] = soLuong;
+			arrayChitiet.push(objectChitiet);
+		})
+		json["maSanPham"] = maSanPham;
+		json["chiTietSanPham"] = arrayChitiet;
+		json["hinhSanPham"] = tenHinh;
+		console.log(json);
+		$.ajax({
+
+			url: "/web-first/api/capnhatsanpham",
+			method: 'POST',
+			data: {
+				datajson: JSON.stringify(json)
+			},
+			success: function(value) {
+			}
+		});
+	});
 })
+
+
+
+
 
 

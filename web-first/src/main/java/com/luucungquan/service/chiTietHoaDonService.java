@@ -1,5 +1,7 @@
 package com.luucungquan.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class chiTietHoaDonService implements chiTietHoaDon {
 	public boolean themChiTietHoaDon(com.luucungquan.entities.chiTietHoaDon chiTietHoaDon) {
 	
 		return chiTietHoaDonDAO.themChiTietHoaDon(chiTietHoaDon);
+	}
+
+	@Override
+	public List<com.luucungquan.entities.chiTietHoaDon> hoaDons() {
+		return chiTietHoaDonDAO.hoaDons();
 	}
 
 }

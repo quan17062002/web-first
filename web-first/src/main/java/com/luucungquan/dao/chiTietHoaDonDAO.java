@@ -1,5 +1,7 @@
 package com.luucungquan.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -31,5 +33,13 @@ public class chiTietHoaDonDAO implements chiTietHoaDon {
 			return false;
 		}
 
+	}
+
+	@Override
+	@Transactional
+	public List<com.luucungquan.entities.chiTietHoaDon> hoaDons() {
+		Session session = sessionFactory .getCurrentSession();
+		List<com.luucungquan.entities.chiTietHoaDon> chiTietHoaDons = session.createQuery("FROM chiTietHoaDon").getResultList();
+		return chiTietHoaDons;
 	}
 }

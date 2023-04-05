@@ -79,13 +79,13 @@ public class sanPhamDAO implements sanPhamImpl {
 			queryChiTietHoaDon.setParameter("maChiTietSanPham", chiTietSanPham.getMaChiTietSanPham());
 			queryChiTietHoaDon.executeUpdate();
 		}
-		//session.createQuery("delete from chiTietKhuyenMai where maSanPham = "+maSanPham).executeUpdate();
-	    session.createQuery("delete from chiTietSanPham where maSanPham = "+maSanPham).executeUpdate();
+		// session.createQuery("delete from chiTietKhuyenMai where maSanPham =
+		// "+maSanPham).executeUpdate();
+		session.createQuery("delete from chiTietSanPham where maSanPham = " + maSanPham).executeUpdate();
 
 		Query queryXoaSanPham = session.createQuery("delete from sanPham where maSanPham = :maSanPham");
 		queryXoaSanPham.setParameter("maSanPham", maSanPham);
 		queryXoaSanPham.executeUpdate();
-
 
 	}
 
@@ -93,9 +93,20 @@ public class sanPhamDAO implements sanPhamImpl {
 	@Transactional
 	public boolean themSanPham(sanPham sanPham) {
 		Session session = sessionFactory.getCurrentSession();
-		int id = (int)session.save(sanPham);
-	
+		int id = (int) session.save(sanPham);
+
 		return false;
+	}
+
+	@Override
+	@Transactional
+	public boolean capNhatSanPham(sanPham sanPham) {
+		Session session = sessionFactory.getCurrentSession();
+
+		// Update the sanPham object
+		session.update(sanPham);
+
+		return true;
 	}
 
 }

@@ -13,26 +13,37 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript">
 	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
 
 </script>
 <!-- Bootstrap Core CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- Custom CSS -->
-<link href='<c:url value="/resources/web/css/style.css" />'rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href='<c:url value="/resources/web/css/morris.css"/>' type="text/css" />
+<link href='<c:url value="/resources/web/css/style.css" />'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet"
+	href='<c:url value="/resources/web/css/morris.css"/>' type="text/css" />
 <!-- Graph CSS -->
-<link  rel="stylesheet" href='<c:url value="/resources/web/css/font-awesome.css" />'>
+<link rel="stylesheet"
+	href='<c:url value="/resources/web/css/font-awesome.css" />'>
 <!-- jQuery -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!-- //jQuery -->
-<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
-<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link
+	href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400'
+	rel='stylesheet' type='text/css' />
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700'
+	rel='stylesheet' type='text/css'>
 <!-- lined-icons -->
-<link rel="stylesheet" href='<c:url value="/resources/web/css/icon-font.min.css" />'  type='text/css' />
+<link rel="stylesheet"
+	href='<c:url value="/resources/web/css/icon-font.min.css" />'
+	type='text/css' />
 <!-- //lined-icons -->
 </head>
 <body>
@@ -75,7 +86,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</li>
 										<li><a href="#">
 												<div class="user_img">
-													<img src=images/in11.jpg" alt=""/>
+													<img src=images/in11.jpg " alt="" />
 												</div>
 												<div class="notification_desc">
 													<p>Lorem ipsum dolor</p>
@@ -700,9 +711,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li id="menu-academico"><a href="../themsanpham/#"><i
 							class="fa fa-plus nav_icon"></i><span>Thêm Sản Phẩn</span>
 							<div class="clearfix"></div></a></li>
-					<li><a href="gallery.html"><i class="fa fa-picture-o"
-							aria-hidden="true"></i><span>Gallery</span>
+							
+							
+							
+					<li><a href="../hoadon/"><i class="fa fa-money"
+							aria-hidden="true"></i><span> Hóa Đơn</span>
 							<div class="clearfix"></div></a></li>
+							
+							
+							
 					<li id="menu-academico"><a href="charts.html"><i
 							class="fa fa-bar-chart"></i><span>Charts</span>
 							<div class="clearfix"></div></a></li>
@@ -783,8 +800,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 	<!--js -->
 
-	<scriptsrc='<c:url  value="/resources/web/js/jquery.nicescroll.js"  />'></script>
-	<script src='<c:url  value="/resources/web/js/scripts.js"  />'></script>
+	<scriptsrc='<c:url  value="/resources/web/js/jquery.nicescroll.js"  />'>
+	</script> <script src='<c:url  value="/resources/web/js/scripts.js"  />'></script>
 	<script src='<c:url  value="/resources/web/js/bootstrap.min.js"  />'></script>
 	<script src='<c:url  value="/resources/web/js/raphael-min.js"  />'></script>
 	<script src='<c:url  value="/resources/web/js/morris.js"  />'></script>

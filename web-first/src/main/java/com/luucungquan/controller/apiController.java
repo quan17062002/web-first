@@ -2,6 +2,7 @@ package com.luucungquan.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.luucungquan.entities.JSON_SanPham;
 import com.luucungquan.entities.chiTietSanPham;
 import com.luucungquan.entities.danhMucSanPham;
 import com.luucungquan.entities.gioHang;
@@ -165,7 +167,9 @@ public class apiController {
 					+ "</td>";
 			html += "<td class='giaTien'>" + sanPham.getGiaTien() + "</td>";
 			html += "<td class='danhCho'>" + sanPham.getGianhCho() + "</td>";
+			html +=  "<td class = 'capNhatSanPham ' data-id = '"+sanPham.getMaSanPham()+"' >   <button type='button' class='btn btn-success'>Update</button></td>";
 			html += "</tr>";
+			
 
 		}
 
@@ -256,4 +260,105 @@ public class apiController {
 		}
 
 	}
+	  
+	@PostMapping("laydanhsachtheoma")
+	@ResponseBody
+	public JSON_SanPham layDanhSachTheoMa(@RequestParam int maSanPham){
+		JSON_SanPham json_SanPham = new JSON_SanPham();
+		sanPham sanPham  = sanPhamService.layChiTietSanPham(maSanPham);
+		json_SanPham .setMaSanPham(sanPham.getMaSanPham());
+		json_SanPham.setTenSanPham(sanPham.getTenSanPham());
+		json_SanPham.setGiaTien(sanPham.getGiaTien());
+		json_SanPham.setMoTa(sanPham.getMoTa());
+		json_SanPham.setHinhSanPham(sanPham.getHinhSanPham());
+		json_SanPham.setGianhCho(sanPham.getGianhCho());
+		
+		danhMucSanPham danhMucSanPham = new danhMucSanPham();
+		danhMucSanPham.setMaDanhMuc(sanPham.getMaDanhMuc().getMaDanhMuc());
+		danhMucSanPham.setTenDanhMuc(sanPham.getMaDanhMuc().getTenDanhMuc());
+	
+		Set<chiTietSanPham> chiTietSanPhams = new HashSet<chiTietSanPham>();
+		 for (chiTietSanPham chiTietPham : sanPham.getChiTietSanPhams()) {
+			 chiTietSanPham chiTietSanPham = new chiTietSanPham();
+			 chiTietSanPham .setMaChiTietSanPham(chiTietPham.getMaChiTietSanPham());
+			 
+			 mauSanPham mauSanPham = new mauSanPham();
+			 mauSanPham.setMaMau(chiTietPham.getMaMau().getMaMau());// cái này là lấy phương thức màu sản phẩm ra rồi add vào chi tiết sản phẩm
+			 mauSanPham.setTenMau(chiTietPham.getMaMau().getTenMau()); 
+			 
+			 sizeSanPham sizeSanPham = new sizeSanPham();
+			 sizeSanPham.setMaSize(chiTietPham.getMaSize().getMaSize());
+			 sizeSanPham.setSize(chiTietPham.getMaSize().getSize());
+			  
+			 
+			
+			 chiTietSanPham.setSoLuong(chiTietPham.getSoLuong());
+			 chiTietSanPham.setMaSize(sizeSanPham);
+			 chiTietSanPham.setMaMau(mauSanPham);
+			 chiTietSanPhams.add(chiTietSanPham);
+			
+		}
+		
+		
+		
+		json_SanPham.setChiTietSanPhams(chiTietSanPhams);
+		json_SanPham.setMaDanhMuc(danhMucSanPham);
+
+		return json_SanPham;
+	}
+
+	@PostMapping("capnhatsanpham")
+	@ResponseBody
+	public void capnhatsanpham(@RequestParam String datajson) {
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode json;
+		try {
+			sanPham sanPham = new sanPham();
+			json = mapper.readTree(datajson);
+			danhMucSanPham danhMucSanPham = new danhMucSanPham();
+			danhMucSanPham.setMaDanhMuc(json.get("danhMucSanPham").asInt());
+
+			JsonNode jsonChiTiet = json.get("chiTietSanPham");
+			Set<chiTietSanPham> listChiTietSanPhams = new HashSet<chiTietSanPham>();
+			for (JsonNode objectChitiet : jsonChiTiet) {
+				chiTietSanPham chiTietSanPham = new chiTietSanPham();
+
+				mauSanPham mauSanPham = new mauSanPham();
+				mauSanPham.setMaMau(objectChitiet.get("mauSanPham").asInt());
+
+				sizeSanPham sizeSanPham = new sizeSanPham();
+				sizeSanPham.setMaSize(objectChitiet.get("sizeSanPham").asInt());
+                chiTietSanPham.setMaSanPham(sanPham);
+				chiTietSanPham.setMaMau(mauSanPham);
+				chiTietSanPham.setMaSize(sizeSanPham);
+				chiTietSanPham.setSoLuong(objectChitiet.get("soLuong").asInt());
+				listChiTietSanPhams.add(chiTietSanPham);
+			}
+			String tenSanPham = json.get("tenSanPham").asText();
+			String giaTien = json.get("giaTien").asText();
+			String moTa = json.get("moTa").asText();
+			String hinhSanPham = json.get("hinhSanPham").asText();
+			String gianhCho = json.get("gianhCho").asText();
+			int maSanPham = json.get("maSanPham").asInt();
+
+			sanPham.setChiTietSanPhams(listChiTietSanPhams);
+			sanPham.setMaDanhMuc(danhMucSanPham);
+			sanPham.setTenSanPham(tenSanPham);
+			sanPham.setGiaTien(giaTien);
+			sanPham.setMoTa(moTa);
+			sanPham.setHinhSanPham(hinhSanPham);
+			sanPham.setGianhCho(gianhCho);
+			sanPham.setMaSanPham(maSanPham);
+
+		sanPhamService.capNhatSanPham(sanPham);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+	}
+	  
+	
+	
 }

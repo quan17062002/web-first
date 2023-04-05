@@ -144,6 +144,7 @@ body, html {
 #chiTietSanPham{
 	display: none;
 }
-
+.hidden{
+	display: none;
+}
 /*   end ẩn chi tiết sản phẩm*/
-

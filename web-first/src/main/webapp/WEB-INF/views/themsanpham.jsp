@@ -83,17 +83,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</c:forEach>
 						</select> <br> <label for="moTa">Mô tả:</label>
 						<textarea class="form-control" id="moTa" name="moTa"></textarea>
-						<label for="giaTien">Giá:</label> <input type="number"
+						<label for="giaTien">Giá:</label> <input
 							class="form-control" id="giaTien" name="giaTien" required>
 
 
 
 						<span>Giành Cho</span> <label
 							class="form-check-label radio-inline" for="gianhCho"> <input
-							type="radio" class="form-check-input" id="gianhCho"
+							type="radio" class="form-check-input" id="rd-nam"
 							name="gianhCho" value="Nam" checked>Nam
 						</label> <label class="form-check-label radio-inline" for="gianhCho">
-							<input type="radio" class="form-check-input" id="gianhCho"
+							<input type="radio" class="form-check-input" id="rd-nu"
 							name="gianhCho" value="Nữ">Nữ
 						</label></br> <label for="hinhSanPham">Ảnh sản phẩm:</label> <input type="file"
 							class="form-control-file" id="hinhSanPham" name="hinhSanPham">
@@ -119,9 +119,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</c:forEach>
 								</select> <br> <label for="soLuong">Số lượng:</label> <input min="1"
 									value="1" type="number" class="form-control" id="soLuong"
-									name="soLuong">
+								name="soLuong">
 
-								<button type="button"
+								<button type="button" id = "themchitietsanpham"
 									class="btn btn-primary float-right btn-themchitiet "
 									style="margin: 22px; margin-left: 10px;">Thêm Chi Tiết</button>
 							</div>
@@ -150,17 +150,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								value="1" type="number" class="form-control" id="soLuong"
 								name="soLuong">
 
-							<button type="button"
+							<button type="button" id = "themchitietsanpham"
 								class="btn btn-primary float-right btn-themchitiet "
 								style="margin: 22px; margin-left: 10px;">Thêm Chi Tiết</button>
 
 						</div>
-
-
-						<button type="submit" id="btnThemSanPham"
-							class="btn btn-primary float-right " style="margin: 22px;">Thêm
-							sản phẩm</button>
-
+						
+                        <button type="submit" id="btnThemSanPham" class="btn btn-primary float-right  " style="margin: 22px;">Thêm sản phẩm</button>
+                        <div class = "nutcapnhatsanpham hidden" style="display: flex;">
+                        <button type="submit" id="btncapnhatsanpham" class="btn btn-primary  " style="margin: 22px;">cập Nhật Sản Phẩm</button>
+						<button type="submit" id="btnxoacapnhatsanpham" class="btn btn-primary  " style="margin: 22px;">Xóa Cập Nhật</button>
+                       </div>
 					</form>
 
 
@@ -200,7 +200,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<td class="giaTien" data-giatien="${lisGioHangs.getGiaTien() }"><span>${lisGioHangs.getGiaTien() }</span></td>
 									<td class="danhCho"
 										data-danhcho="${lisGioHangs.getGianhCho() }">${lisGioHangs.getGianhCho() }</td>
-
+                                    <td class = "capNhatSanPham " data-id = "${lisGioHangs.getMaSanPham()}" >   <button type="button" class="btn btn-success">Update</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -239,7 +239,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div style="border-top: 1px ridge rgba(255, 255, 255, 0.15)"></div>
 			<div class="menu">
 				<ul id="menu">
-					<li><a href=""><i class="fa fa-tachometer"></i> <span>Trang
+					<li><a href="../dashbor/"><i class="fa fa-tachometer"></i> <span>Trang
 								Admin</span>
 							<div class="clearfix"></div></a></li>
 
@@ -247,9 +247,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li id="menu-academico"><a href="../themsanpham/"><i
 							class="fa fa-plus nav_icon"></i><span>Thêm Sản Phẩn</span>
 							<div class="clearfix"></div></a></li>
-					<li><a href="gallery.html"><i class="fa fa-picture-o"
-							aria-hidden="true"></i><span>Gallery</span>
+							
+							
+							
+							
+					<li><a href="../hoadon/"><i class="fa fa-money"
+							aria-hidden="true"></i><span> Hóa Đơn</span>
 							<div class="clearfix"></div></a></li>
+							
+							
+							
+							
+							
 					<li id="menu-academico"><a href="charts.html"><i
 							class="fa fa-bar-chart"></i><span>Charts</span>
 							<div class="clearfix"></div></a></li>

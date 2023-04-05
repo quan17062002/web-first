@@ -51,4 +51,12 @@ public class sanPhamService implements sanPhamImpl {
 		return sanPhamDAO.themSanPham(sanPham);
 	}
 
+	@Override
+	public boolean capNhatSanPham(sanPham sanPham) {
+		return sanPhamDAO.capNhatSanPham(sanPham);
+	}
+
+	
+
+
 }
